@@ -11,3 +11,6 @@
 
 # Builds
 dist
+
+# Coverage
+coverage
