@@ -16,7 +16,7 @@
       "@babel/plugin-transform-react-jsx",
       {
         "runtime": "automatic",
-        "importSource": ".",
+        "importSource": "jusuxu/src",
         "useBuiltIns": true,
         "useSpread": true
       }

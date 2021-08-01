@@ -6,6 +6,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "jusuxu/src",
     "module": "ESNext",
     "moduleResolution": "node",
     "noImplicitReturns": true,
