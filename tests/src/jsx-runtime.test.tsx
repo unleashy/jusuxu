@@ -31,6 +31,38 @@ describe(jsx, () => {
   it.each(["A!", "B?", "cð"])("does not throw on tag name %j", tag => {
     expect(() => jsx(tag, {})).not.toThrow();
   });
+
+  it.each([
+    "",
+    " ",
+    "\f",
+    "\n",
+    "\t",
+    "\0",
+    "/",
+    ">",
+    "<",
+    "=",
+    "'",
+    '"',
+    " a",
+    "b ",
+    "c/",
+    "d>",
+    "e<",
+    "F=",
+    "G'",
+    'H"'
+  ])("throws on attribute name %j", attr => {
+    expect(() => jsx("div", { [attr]: "" })).toThrowErrorMatchingSnapshot();
+  });
+
+  it.each(["a[]", "b:c", "dę", "f^g"])(
+    "does not throw on attribute name %j",
+    attr => {
+      expect(() => jsx("div", { [attr]: "" })).not.toThrow();
+    }
+  );
 });
 
 describe("jsxs", () => {

@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`jsx throws on attribute name " " 1`] = `"Attribute name \\" \\" is not valid."`;
+
+exports[`jsx throws on attribute name " a" 1`] = `"Attribute name \\" a\\" is not valid."`;
+
+exports[`jsx throws on attribute name "" 1`] = `"Attribute name \\"\\" is not valid."`;
+
+exports[`jsx throws on attribute name "'" 1`] = `"Attribute name \\"'\\" is not valid."`;
+
+exports[`jsx throws on attribute name "/" 1`] = `"Attribute name \\"/\\" is not valid."`;
+
+exports[`jsx throws on attribute name "<" 1`] = `"Attribute name \\"<\\" is not valid."`;
+
+exports[`jsx throws on attribute name "=" 1`] = `"Attribute name \\"=\\" is not valid."`;
+
+exports[`jsx throws on attribute name ">" 1`] = `"Attribute name \\">\\" is not valid."`;
+
+exports[`jsx throws on attribute name "\\"" 1`] = `"Attribute name \\"\\\\\\"\\" is not valid."`;
+
+exports[`jsx throws on attribute name "\\f" 1`] = `"Attribute name \\"\\\\f\\" is not valid."`;
+
+exports[`jsx throws on attribute name "\\n" 1`] = `"Attribute name \\"\\\\n\\" is not valid."`;
+
+exports[`jsx throws on attribute name "\\t" 1`] = `"Attribute name \\"\\\\t\\" is not valid."`;
+
+exports[`jsx throws on attribute name "\\u0000" 1`] = `"Attribute name \\"\\\\u0000\\" is not valid."`;
+
+exports[`jsx throws on attribute name "F=" 1`] = `"Attribute name \\"F=\\" is not valid."`;
+
+exports[`jsx throws on attribute name "G'" 1`] = `"Attribute name \\"G'\\" is not valid."`;
+
+exports[`jsx throws on attribute name "H\\"" 1`] = `"Attribute name \\"H\\\\\\"\\" is not valid."`;
+
+exports[`jsx throws on attribute name "b " 1`] = `"Attribute name \\"b \\" is not valid."`;
+
+exports[`jsx throws on attribute name "c/" 1`] = `"Attribute name \\"c/\\" is not valid."`;
+
+exports[`jsx throws on attribute name "d>" 1`] = `"Attribute name \\"d>\\" is not valid."`;
+
+exports[`jsx throws on attribute name "e<" 1`] = `"Attribute name \\"e<\\" is not valid."`;
+
 exports[`jsx throws on tag name " " 1`] = `"Tag name \\" \\" is not valid."`;
 
 exports[`jsx throws on tag name "!" 1`] = `"Tag name \\"!\\" is not valid."`;
