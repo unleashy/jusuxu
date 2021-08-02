@@ -11,7 +11,13 @@ declare global {
   }
 }
 
+const VALID_TAG_REGEX = /^[a-z]+[^\s/>\u0000]*$/i;
+
 export function jsx(type: string, props: Props): JSX.Element {
+  if (!VALID_TAG_REGEX.test(type)) {
+    throw new Error(`Tag name ${JSON.stringify(type)} is not valid.`);
+  }
+
   return new HtmlElement(type, props);
 }
 

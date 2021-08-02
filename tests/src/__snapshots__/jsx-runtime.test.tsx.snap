@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`jsx throws on tag name " " 1`] = `"Tag name \\" \\" is not valid."`;
+
+exports[`jsx throws on tag name "!" 1`] = `"Tag name \\"!\\" is not valid."`;
+
+exports[`jsx throws on tag name "" 1`] = `"Tag name \\"\\" is not valid."`;
+
+exports[`jsx throws on tag name "/" 1`] = `"Tag name \\"/\\" is not valid."`;
+
+exports[`jsx throws on tag name ">" 1`] = `"Tag name \\">\\" is not valid."`;
+
+exports[`jsx throws on tag name "?" 1`] = `"Tag name \\"?\\" is not valid."`;
+
+exports[`jsx throws on tag name "\\f" 1`] = `"Tag name \\"\\\\f\\" is not valid."`;
+
+exports[`jsx throws on tag name "\\n" 1`] = `"Tag name \\"\\\\n\\" is not valid."`;
+
+exports[`jsx throws on tag name "\\t" 1`] = `"Tag name \\"\\\\t\\" is not valid."`;
+
+exports[`jsx throws on tag name "\\u0000" 1`] = `"Tag name \\"\\\\u0000\\" is not valid."`;
+
+exports[`jsx throws on tag name "\\u0000" 2`] = `"Tag name \\"\\\\u0000\\" is not valid."`;
+
+exports[`jsx throws on tag name "F/" 1`] = `"Tag name \\"F/\\" is not valid."`;
+
+exports[`jsx throws on tag name "G>" 1`] = `"Tag name \\"G>\\" is not valid."`;
+
+exports[`jsx throws on tag name "a " 1`] = `"Tag name \\"a \\" is not valid."`;
+
+exports[`jsx throws on tag name "b\\f" 1`] = `"Tag name \\"b\\\\f\\" is not valid."`;
+
+exports[`jsx throws on tag name "c\\n" 1`] = `"Tag name \\"c\\\\n\\" is not valid."`;
+
+exports[`jsx throws on tag name "d\\t" 1`] = `"Tag name \\"d\\\\t\\" is not valid."`;
+
+exports[`jsx throws on tag name "h\\u0000" 1`] = `"Tag name \\"h\\\\u0000\\" is not valid."`;
+
+exports[`jsx throws on tag name '	' 1`] = `"Tag name \\"\\\\t\\" is not valid."`;
+
+exports[`jsx throws on tag name '
+' 1`] = `"Tag name \\"\\\\n\\" is not valid."`;
+
+exports[`jsx throws on tag name '' 1`] = `"Tag name \\"\\\\f\\" is not valid."`;
+
+exports[`jsx throws on tag name ' ' 1`] = `"Tag name \\" \\" is not valid."`;
+
+exports[`jsx throws on tag name '' 1`] = `"Tag name \\"\\" is not valid."`;
