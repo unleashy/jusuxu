@@ -78,3 +78,13 @@ const VOID_ELEMENTS = [
   "track",
   "wbr"
 ];
+
+export type Component = (props: Props) => Element;
+
+export class ComponentElement implements Element {
+  constructor(readonly Component: Component, readonly props: Props) {}
+
+  render(): string {
+    return this.Component(this.props).render();
+  }
+}

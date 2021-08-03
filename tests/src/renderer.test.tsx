@@ -143,5 +143,37 @@ describe(Renderer, () => {
         )
       ).toEqual(`<p>some<i>te<br>xt</i>here</p>`);
     });
+
+    it("renders components", () => {
+      const sut = new Renderer();
+      const Component: () => JSX.Element = jest.fn(() => <span />);
+
+      expect(sut.renderFragment(<Component />)).toEqual("<span></span>");
+      expect(Component).toHaveBeenCalledWith({});
+    });
+
+    it("renders components with props", () => {
+      const sut = new Renderer();
+      const Component: (props: { foo: string; baz: number }) => JSX.Element =
+        jest.fn(() => <span />);
+
+      expect(sut.renderFragment(<Component foo="bar" baz={123} />)).toEqual(
+        "<span></span>"
+      );
+      expect(Component).toHaveBeenCalledWith({ foo: "bar", baz: 123 });
+    });
+
+    it("renders components inside tags", () => {
+      const sut = new Renderer();
+      const Component: () => JSX.Element = jest.fn(() => <span />);
+
+      expect(
+        sut.renderFragment(
+          <p>
+            <Component />
+          </p>
+        )
+      ).toEqual(`<p><span></span></p>`);
+    });
   });
 });

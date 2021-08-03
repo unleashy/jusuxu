@@ -1,9 +1,10 @@
 import { jsx, jsxs } from "../../src";
-import { HtmlElement } from "../../src/element";
+import { ComponentElement, HtmlElement } from "../../src/element";
 
 describe(jsx, () => {
   it("constructs Elements properly", () => {
     expect(jsx("a", { href: "link" })).toBeInstanceOf(HtmlElement);
+    expect(jsx(jest.fn(), { foo: "bar" })).toBeInstanceOf(ComponentElement);
   });
 
   it.each([

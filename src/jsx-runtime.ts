@@ -1,4 +1,10 @@
-import { Element as JusuxuElement, HtmlElement, Props } from "./element";
+import {
+  Component,
+  ComponentElement,
+  Element as JusuxuElement,
+  HtmlElement,
+  Props
+} from "./element";
 
 declare global {
   namespace JSX {
@@ -11,11 +17,15 @@ declare global {
   }
 }
 
-export function jsx(type: string, props: Props): JSX.Element {
-  validateTagName(type);
-  validateAttributes(props);
+export function jsx(type: string | Component, props: Props): JSX.Element {
+  if (typeof type === "string") {
+    validateTagName(type);
+    validateAttributes(props);
 
-  return new HtmlElement(type, props);
+    return new HtmlElement(type, props);
+  } else {
+    return new ComponentElement(type, props);
+  }
 }
 
 const VALID_TAG_REGEX = /^[a-z]+[^\s/>\u0000]*$/i;
