@@ -1,4 +1,9 @@
 import { jsx, Renderer } from "../../src";
+import { escapeTextForHtml } from "../../src/escaping";
+
+jest.mock("../../src/escaping", () => ({
+  escapeTextForHtml: jest.fn(text => text)
+}));
 
 describe(Renderer, () => {
   describe(".renderFragment", () => {
@@ -52,6 +57,14 @@ describe(Renderer, () => {
       expect(sut.renderFragment(<div>foobar</div>)).toEqual(
         `<div>foobar</div>`
       );
+    });
+
+    it("escapes text children via escapeTextForHtml", () => {
+      const sut = new Renderer();
+      expect(sut.renderFragment(<div>to be escaped</div>)).toEqual(
+        `<div>to be escaped</div>`
+      );
+      expect(escapeTextForHtml).toHaveBeenCalledWith("to be escaped");
     });
 
     it("ignores undefined, bool and null children", () => {

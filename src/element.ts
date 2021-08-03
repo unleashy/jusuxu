@@ -1,3 +1,5 @@
+import { escapeTextForHtml } from "./escaping";
+
 export interface Element {
   render: () => string;
 }
@@ -29,7 +31,7 @@ export class HtmlElement implements Element {
   private renderChildren(children: unknown): string {
     switch (typeof children) {
       case "string":
-        return children;
+        return escapeTextForHtml(children);
 
       case "object":
         if (Array.isArray(children)) {
