@@ -176,4 +176,15 @@ describe(Renderer, () => {
       ).toEqual(`<p><span></span></p>`);
     });
   });
+
+  describe(".render", () => {
+    it("prepends a doctype and calls renderFragment", () => {
+      const sut = new Renderer();
+      const renderFragmentSpy = jest.spyOn(sut, "renderFragment");
+      const element = <span />;
+
+      expect(sut.render(element)).toEqual("<!DOCTYPE html><span></span>");
+      expect(renderFragmentSpy).toHaveBeenCalledWith(element);
+    });
+  });
 });

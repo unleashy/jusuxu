@@ -1,7 +1,9 @@
-import { Element } from "./element";
-
 export class Renderer {
-  renderFragment(element: Element): string {
+  render(element: JSX.Element): string {
+    return `<!DOCTYPE html>${this.renderFragment(element)}`;
+  }
+
+  renderFragment(element: JSX.Element): string {
     return element.render();
   }
 }
