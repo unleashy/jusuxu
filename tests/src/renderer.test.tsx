@@ -1,8 +1,9 @@
 import { jsx, Renderer } from "../../src";
-import { escapeTextForHtml } from "../../src/escaping";
+import { escapeTextForAttribute, escapeTextForHtml } from "../../src/escaping";
 
 jest.mock("../../src/escaping", () => ({
-  escapeTextForHtml: jest.fn(text => text)
+  escapeTextForHtml: jest.fn(text => text),
+  escapeTextForAttribute: jest.fn(text => text)
 }));
 
 describe(Renderer, () => {
@@ -61,8 +62,18 @@ describe(Renderer, () => {
       ).toEqual(`<img src="foo.jpg" alt="something" loading="lazy">`);
     });
 
+    it("escapes attribute values via escapeTextForAttribute", () => {
+      const sut = new Renderer();
+
+      expect(sut.renderFragment(<span title="to be escaped" />)).toEqual(
+        `<span title="to be escaped"></span>`
+      );
+      expect(escapeTextForAttribute).toHaveBeenCalledWith("to be escaped");
+    });
+
     it("renders a text child", () => {
       const sut = new Renderer();
+
       expect(sut.renderFragment(<div>foobar</div>)).toEqual(
         `<div>foobar</div>`
       );
@@ -70,6 +81,7 @@ describe(Renderer, () => {
 
     it("escapes text children via escapeTextForHtml", () => {
       const sut = new Renderer();
+
       expect(sut.renderFragment(<div>to be escaped</div>)).toEqual(
         `<div>to be escaped</div>`
       );

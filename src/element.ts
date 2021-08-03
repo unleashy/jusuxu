@@ -1,4 +1,4 @@
-import { escapeTextForHtml } from "./escaping";
+import { escapeTextForAttribute, escapeTextForHtml } from "./escaping";
 
 export interface Element {
   render: () => string;
@@ -27,7 +27,7 @@ export class HtmlElement implements Element {
         } else if (v === false || typeof v === "undefined" || v === null) {
           return false;
         } else {
-          return `${k}="${v}"`;
+          return `${k}="${escapeTextForAttribute(String(v))}"`;
         }
       })
       .filter(it => it); // remove false boolean attrs
