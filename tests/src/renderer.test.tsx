@@ -58,8 +58,8 @@ describe(Renderer, () => {
       const sut = new Renderer();
 
       expect(
-        sut.renderFragment(<img src="foo.jpg" alt="something" loading="lazy" />)
-      ).toEqual(`<img src="foo.jpg" alt="something" loading="lazy">`);
+        sut.renderFragment(<img src="foo.jpg" alt="" loading="lazy" />)
+      ).toEqual(`<img src="foo.jpg" alt="" loading="lazy">`);
     });
 
     it("escapes attribute values via escapeTextForAttribute", () => {

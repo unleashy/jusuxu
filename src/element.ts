@@ -22,12 +22,17 @@ export class HtmlElement implements Element {
   private renderAttributes(props: Omit<Props, "children">): string {
     const processedAttrs = Object.entries(props)
       .map(([k, v]) => {
-        if (v === true) {
-          return k;
-        } else if (v === false || typeof v === "undefined" || v === null) {
-          return false;
-        } else {
-          return `${k}="${escapeTextForAttribute(String(v))}"`;
+        switch (v) {
+          case true:
+            return k;
+
+          case false:
+          case undefined:
+          case null:
+            return false;
+
+          default:
+            return `${k}="${escapeTextForAttribute(String(v))}"`;
         }
       })
       .filter(it => it); // remove false boolean attrs
