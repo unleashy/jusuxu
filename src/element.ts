@@ -20,11 +20,22 @@ export class HtmlElement implements Element {
   }
 
   private renderAttributes(props: Omit<Props, "children">): string {
-    const propsEntries = Object.entries(props);
-    if (propsEntries.length === 0) {
+    const processedAttrs = Object.entries(props)
+      .map(([k, v]) => {
+        if (v === true) {
+          return k;
+        } else if (v === false || typeof v === "undefined" || v === null) {
+          return false;
+        } else {
+          return `${k}="${v}"`;
+        }
+      })
+      .filter(it => it); // remove false boolean attrs
+
+    if (processedAttrs.length === 0) {
       return "";
     } else {
-      return " " + propsEntries.map(([k, v]) => `${k}="${v}"`).join(" ");
+      return " " + processedAttrs.join(" ");
     }
   }
 

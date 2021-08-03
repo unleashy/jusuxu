@@ -44,6 +44,15 @@ describe(Renderer, () => {
       );
     });
 
+    it("renders boolean attributes correctly", () => {
+      const sut = new Renderer();
+
+      expect(sut.renderFragment(<p hidden={true} />)).toEqual(`<p hidden></p>`);
+      expect(sut.renderFragment(<p hidden={false} />)).toEqual(`<p></p>`);
+      expect(sut.renderFragment(<p hidden={null} />)).toEqual(`<p></p>`);
+      expect(sut.renderFragment(<p hidden={undefined} />)).toEqual(`<p></p>`);
+    });
+
     it("renders multiple attributes", () => {
       const sut = new Renderer();
 
