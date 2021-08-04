@@ -1,6 +1,11 @@
 {
   "name": "jusuxu",
   "version": "0.1.0",
+  "description": "Use JSX as a classic templating engine",
+  "homepage": "https://github.com/unleashy/jusuxu#readme",
+  "license": "MIT",
+  "author": "Emmanuelle Fernandes",
+  "repository": "github:unleashy/jusuxu",
   "main": "./dist/index.js",
   "exports": {
     ".": "./dist/index.js",
@@ -10,8 +15,7 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist/**/*",
-    "LICENSE.txt"
+    "dist/**/*"
   ],
   "types": "./dist/index.d.ts",
   "scripts": {
