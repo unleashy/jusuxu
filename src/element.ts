@@ -6,6 +6,23 @@ export interface Element {
 
 export type Props = Record<string, unknown> & { children?: unknown };
 
+const VOID_ELEMENTS = [
+  "area",
+  "base",
+  "br",
+  "col",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "link",
+  "meta",
+  "param",
+  "source",
+  "track",
+  "wbr"
+];
+
 export class HtmlElement implements Element {
   constructor(readonly tagName: string, readonly props: Props) {}
 
@@ -15,7 +32,7 @@ export class HtmlElement implements Element {
       return `<${this.tagName}${this.renderAttributes(props)}>`;
     } else {
       // prettier-ignore
-      return `<${this.tagName}${this.renderAttributes(props)}>${this.renderChildren(children)}</${this.tagName}>`;
+      return `<${this.tagName}${this.renderAttributes(props)}>${renderChildren(children)}</${this.tagName}>`;
     }
   }
 
@@ -43,41 +60,7 @@ export class HtmlElement implements Element {
       return " " + processedAttrs.join(" ");
     }
   }
-
-  private renderChildren(children: unknown): string {
-    switch (typeof children) {
-      case "string":
-        return escapeTextForHtml(children);
-
-      case "object":
-        if (Array.isArray(children)) {
-          return children.map(child => this.renderChildren(child)).join("");
-        } else {
-          return (children as Element | null)?.render() ?? "";
-        }
-
-      default:
-        return "";
-    }
-  }
 }
-
-const VOID_ELEMENTS = [
-  "area",
-  "base",
-  "br",
-  "col",
-  "embed",
-  "hr",
-  "img",
-  "input",
-  "link",
-  "meta",
-  "param",
-  "source",
-  "track",
-  "wbr"
-];
 
 export type Component = (props: Props) => Element;
 
@@ -86,5 +69,30 @@ export class ComponentElement implements Element {
 
   render(): string {
     return this.Component(this.props).render();
+  }
+}
+
+export class FragmentElement implements Element {
+  constructor(readonly children: unknown) {}
+
+  render(): string {
+    return renderChildren(this.children);
+  }
+}
+
+function renderChildren(children: unknown): string {
+  switch (typeof children) {
+    case "string":
+      return escapeTextForHtml(children);
+
+    case "object":
+      if (Array.isArray(children)) {
+        return children.map(renderChildren).join("");
+      } else {
+        return (children as Element | null)?.render() ?? "";
+      }
+
+    default:
+      return "";
   }
 }

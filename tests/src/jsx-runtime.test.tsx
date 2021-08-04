@@ -1,10 +1,15 @@
-import { jsx, jsxs } from "../../src";
-import { ComponentElement, HtmlElement } from "../../src/element";
+import { Fragment, jsx, jsxs } from "../../src";
+import {
+  ComponentElement,
+  FragmentElement,
+  HtmlElement
+} from "../../src/element";
 
 describe(jsx, () => {
   it("constructs Elements properly", () => {
     expect(jsx("a", { href: "link" })).toBeInstanceOf(HtmlElement);
     expect(jsx(jest.fn(), { foo: "bar" })).toBeInstanceOf(ComponentElement);
+    expect(jsx(Fragment, { children: [] })).toBeInstanceOf(FragmentElement);
   });
 
   it.each([

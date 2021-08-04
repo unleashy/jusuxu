@@ -175,6 +175,81 @@ describe(Renderer, () => {
         )
       ).toEqual(`<p><span></span></p>`);
     });
+
+    it("renders empty fragments", () => {
+      const sut = new Renderer();
+
+      expect(sut.renderFragment(<></>)).toEqual(``);
+    });
+
+    it("renders fragments with text", () => {
+      const sut = new Renderer();
+
+      expect(sut.renderFragment(<>foobar</>)).toEqual(`foobar`);
+    });
+
+    it("escapes text children via escapeTextForHtml", () => {
+      const sut = new Renderer();
+
+      expect(sut.renderFragment(<>to be escaped</>)).toEqual(`to be escaped`);
+      expect(escapeTextForHtml).toHaveBeenCalledWith("to be escaped");
+    });
+
+    it("ignores undefined, bool and null children", () => {
+      const sut = new Renderer();
+
+      expect(sut.renderFragment(<>{undefined}</>)).toEqual(``);
+      expect(sut.renderFragment(<>{true}</>)).toEqual(``);
+      expect(sut.renderFragment(<>{false}</>)).toEqual(``);
+      expect(sut.renderFragment(<>{null}</>)).toEqual(``);
+    });
+
+    it("renders an element child", () => {
+      const sut = new Renderer();
+
+      expect(
+        sut.renderFragment(
+          <>
+            <span title="foo">a</span>
+          </>
+        )
+      ).toEqual(`<span title="foo">a</span>`);
+    });
+
+    it("renders multiple child elements", () => {
+      const sut = new Renderer();
+
+      expect(
+        sut.renderFragment(
+          <>
+            <meta charset="utf-8" />
+            <title>foobar</title>
+          </>
+        )
+      ).toEqual(`<meta charset="utf-8"><title>foobar</title>`);
+    });
+
+    it("renders mixed-type children", () => {
+      const sut = new Renderer();
+
+      expect(
+        sut.renderFragment(
+          <>
+            some
+            <i>
+              te
+              <br />
+              xt
+            </i>
+            {undefined}
+            {false}
+            here
+            {true}
+            {null}
+          </>
+        )
+      ).toEqual(`some<i>te<br>xt</i>here`);
+    });
   });
 
   describe(".render", () => {

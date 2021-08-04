@@ -2,6 +2,7 @@ import {
   Component,
   ComponentElement,
   Element as JusuxuElement,
+  FragmentElement,
   HtmlElement,
   Props
 } from "./element";
@@ -17,12 +18,20 @@ declare global {
   }
 }
 
-export function jsx(type: string | Component, props: Props): JSX.Element {
+export const Fragment = Symbol();
+type Fragment = typeof Fragment;
+
+export function jsx(
+  type: string | Component | Fragment,
+  props: Props
+): JSX.Element {
   if (typeof type === "string") {
     validateTagName(type);
     validateAttributes(props);
 
     return new HtmlElement(type, props);
+  } else if (type === Fragment) {
+    return new FragmentElement(props.children);
   } else {
     return new ComponentElement(type, props);
   }
