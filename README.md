@@ -63,6 +63,33 @@ const html = renderer.renderFragment(<Greet name="Emma" />);
 console.log(html); // => "<p>Hello, Emma!</p>"
 ```
 
+### Integrating with Express
+
+Register the engine plus set your view paths and whatnot:
+
+```typescript
+import express from "express";
+import { createEngine } from "jusuxu/express"; 
+
+const app = express();
+
+// register jusuxu to tsx files (or jsx if not using TS!)
+app.engine("tsx", createEngine());
+
+// set .tsx/.jsx as the default extension and set your views path
+app.set("view engine", "tsx");
+app.set("views", __dirname + "/views");
+```
+
+Each view file must default-export a component; its props are the locals you
+pass through a Response’s `render` method: 
+
+```typescript jsx
+export default function Homepage({ name }: { name: string }) {
+  return <p>Welcome, {name}!</p>;
+}
+```
+
 ## Licence
 
 [MIT.](LICENSE.txt)

@@ -15,5 +15,5 @@
     "target": "ES2019",
     "lib": ["ES2019"]
   },
-  "exclude": ["dist"]
+  "exclude": [".yarn", "dist"]
 }

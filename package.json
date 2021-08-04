@@ -6,10 +6,12 @@
     ".": "./dist/index.js",
     "./": "./dist/index.js",
     "./jsx-runtime": "./dist/jsx-runtime.js",
+    "./express": "./dist/express.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "LICENSE.txt"
   ],
   "types": "./dist/index.d.ts",
   "scripts": {
