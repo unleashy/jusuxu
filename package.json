@@ -23,7 +23,7 @@
     "build-decls": "tsc src/**/* --outDir dist --declaration --emitDeclarationOnly",
     "build": "yarn build-compile && yarn build-decls",
     "test": "jest --coverage",
-    "prepack": "build"
+    "prepack": "yarn build"
   },
   "packageManager": "yarn@2.4.1",
   "devDependencies": {
