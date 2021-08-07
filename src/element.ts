@@ -4,7 +4,10 @@ export interface Element {
   render: () => string;
 }
 
-export type Props = Record<string, unknown> & { children?: unknown };
+export type Props = Record<string, unknown> & {
+  children?: unknown;
+  dangerouslySetInnerHTML?: { __html: string };
+};
 
 const VOID_ELEMENTS = [
   "area",
@@ -23,21 +26,39 @@ const VOID_ELEMENTS = [
   "wbr"
 ];
 
-export class HtmlElement implements Element {
-  constructor(readonly tagName: string, readonly props: Props) {}
+export abstract class HtmlElement implements Element {
+  static for(tagName: string, props: Props): HtmlElement {
+    const { children, ...otherProps } = props;
 
-  render(): string {
-    const { children, ...props } = this.props;
-    if (VOID_ELEMENTS.includes(this.tagName)) {
-      return `<${this.tagName}${this.renderAttributes(props)}>`;
+    if (VOID_ELEMENTS.includes(tagName)) {
+      return new VoidHtmlElement(tagName, otherProps);
+    } else if ("dangerouslySetInnerHTML" in otherProps) {
+      const { dangerouslySetInnerHTML, ...otherOtherProps } = otherProps;
+
+      return new DangerousHtmlElement(
+        tagName,
+        otherOtherProps,
+        (dangerouslySetInnerHTML as { __html: string }).__html
+      );
     } else {
-      // prettier-ignore
-      return `<${this.tagName}${this.renderAttributes(props)}>${renderChildren(children)}</${this.tagName}>`;
+      return new NormalHtmlElement(tagName, otherProps, children);
     }
   }
 
-  private renderAttributes(props: Omit<Props, "children">): string {
-    const processedAttrs = Object.entries(props)
+  protected constructor(
+    readonly tagName: string,
+    readonly props: Omit<Props, "children">,
+    readonly children: unknown
+  ) {}
+
+  render(): string {
+    return `<${this.tagName}${this.attributes()}>${this.contents()}`;
+  }
+
+  protected abstract contents(): string;
+
+  protected attributes(): string {
+    const processedAttrs = Object.entries(this.props)
       .map(([k, v]) => {
         switch (v) {
           case true:
@@ -59,6 +80,36 @@ export class HtmlElement implements Element {
     } else {
       return " " + processedAttrs.join(" ");
     }
+  }
+}
+
+class NormalHtmlElement extends HtmlElement {
+  protected contents(): string {
+    return `${renderChildren(this.children)}</${this.tagName}>`;
+  }
+}
+
+class VoidHtmlElement extends HtmlElement {
+  constructor(tagName: string, props: Omit<Props, "children">) {
+    super(tagName, props, undefined);
+  }
+
+  protected contents(): string {
+    return ``;
+  }
+}
+
+class DangerousHtmlElement extends HtmlElement {
+  constructor(
+    tagName: string,
+    props: Omit<Props, "children" | "dangerouslySetInnerHTML">,
+    readonly dangerousContent: string
+  ) {
+    super(tagName, props, undefined);
+  }
+
+  protected contents(): string {
+    return `${String(this.dangerousContent)}</${this.tagName}>`;
   }
 }
 

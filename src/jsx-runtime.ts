@@ -29,7 +29,7 @@ export function jsx(
     validateTagName(type);
     validateAttributes(props);
 
-    return new HtmlElement(type, props);
+    return HtmlElement.for(type, props);
   } else if (type === Fragment) {
     return new FragmentElement(props.children);
   } else {

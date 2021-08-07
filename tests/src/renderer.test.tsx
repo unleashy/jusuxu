@@ -250,6 +250,18 @@ describe(Renderer, () => {
         )
       ).toEqual(`some<i>te<br>xt</i>here`);
     });
+
+    it("renders `dangerouslySetInnerHTML`", () => {
+      const sut = new Renderer();
+
+      expect(
+        sut.renderFragment(
+          <div dangerouslySetInnerHTML={{ __html: `<b>bold</b>` }}>ignored</div>
+        )
+      ).toEqual("<div><b>bold</b></div>");
+      expect(escapeTextForHtml).not.toHaveBeenCalled();
+      expect(escapeTextForAttribute).not.toHaveBeenCalled();
+    });
   });
 
   describe(".render", () => {
