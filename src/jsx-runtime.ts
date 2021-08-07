@@ -13,6 +13,10 @@ declare global {
       [name: string]: any;
     }
 
+    interface ElementChildrenAttribute {
+      children: unknown;
+    }
+
     type Element = JusuxuElement;
     type ElementClass = never;
   }
